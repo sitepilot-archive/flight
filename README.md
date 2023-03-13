@@ -18,7 +18,12 @@ environments.
 
 ## Installation
 
-Coming soon.
+You may install the [Flight](https://github.com/sitepilot/flight) as a global [Composer](https://getcomposer.org/)
+dependency:
+
+```bash
+composer global require sitepilot/flight
+```
 
 ## Getting Started
 
@@ -40,7 +45,7 @@ remote:
   shell: bash             # the remote shell
 
 sync:
-  ignore:                 # list of ignored files and folders
+  ignore: # list of ignored files and folders
     - node_modules
 ```
 
@@ -85,7 +90,7 @@ flight wp <command>
 
 Flight is also compatible with (remote) containers. Flight can forward Docker Compose commands and
 automatically execute shell commands (like `flight exec`, `flight artisan` and `flight wp`) in a container
-instead of on the host. Add the following configuration to the project to start working with containers:
+instead of on the remote host. Add the following configuration to start working with containers:
 
 ```yaml
 container:
