@@ -19,7 +19,7 @@ Downloading the phar file is the recommended installation method for most users.
 * [Mutagen](https://mutagen.io/)
 
 ```bash
-curl -O https://github.com/sitepilot/flight/releases/download/latest/flight
+php -r "copy('https://github.com/sitepilot/flight/releases/latest/download/flight', 'flight');"
 ```
 
 Next, check the phar file to verify that it’s working:
