@@ -1,0 +1,55 @@
+---
+name: run-tests
+
+on:
+  push:
+  release:
+    types:
+      - created
+
+jobs:
+  tests:
+    runs-on: ubuntu-22.04
+
+    strategy:
+      fail-fast: true
+      matrix:
+        php: [ 8.1 ]
+
+    name: PHP ${{ matrix.php }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP environment
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring
+          tools: composer:v2
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install
+
+      - name: Run unit/feature tests
+        run: ./flight test
+
+      - name: Build application
+        run: |
+          export VERSION=${GITHUB_REF##*/}
+          ./flight app:build --build-version=$VERSION
+        if: github.event.release && matrix.php == 8.1
+
+      - name: Upload application build to release
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./builds/flight
+          asset_name: flight
+          asset_content_type: application/php
+        if: github.event.release && matrix.php == 8.1

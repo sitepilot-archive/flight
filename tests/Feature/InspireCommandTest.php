@@ -1,5 +1,5 @@
 <?php
 
-it('inspires artisans', function () {
-    $this->artisan('inspire')->assertExitCode(0);
+it('creates a configuration file', function () {
+    $this->artisan('init')->assertExitCode(0);
 });
