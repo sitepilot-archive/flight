@@ -38,7 +38,7 @@ jobs:
 
       - name: Build application
         run: |
-          export VERSION=${GITHUB_REF##*/v}
+          export VERSION=${GITHUB_REF##*/}
           ./flight app:build --build-version=$VERSION
         if: github.event.release && matrix.php == 8.1
 
