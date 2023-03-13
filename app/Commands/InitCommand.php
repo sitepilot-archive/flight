@@ -27,7 +27,7 @@ class InitCommand extends Command
                     ],
                     'sync' => [
                         'ignore' => [
-                            '.idea', '.fleet', '.vscode', '.DS_Store', 'node_modules'
+                            '.idea', '.fleet', '.vscode', '.DS_Store', 'flight.yml', 'node_modules'
                         ]
                     ]
                 ], 99, 2));
