@@ -10,20 +10,34 @@
 Flight is a remote development tool that enables your existing local tools to work with code in remote cloud
 environments.
 
-## Requirements
-
-* MacOS, Linux or Windows
-* PHP >= 8.1
-* [Mutagen](https://mutagen.io/)
-
 ## Installation
 
-You may install the [Flight](https://github.com/sitepilot/flight) as a global [Composer](https://getcomposer.org/)
-dependency:
+Downloading the phar file is the recommended installation method for most users. Before installing Flight, please make sure your environment meets the minimum requirements:
+
+* UNIX-like environment (Linux, MacOS, WSL)
+* PHP 8.1 or later
+* [Mutagen](https://mutagen.io/)
 
 ```bash
-composer global require sitepilot/flight
+curl -O https://github.com/sitepilot/flight/releases/download/latest/flight
 ```
+
+Next, check the phar file to verify that it’s working:
+
+```bash
+php flight
+```
+
+To use Flight from the command line by typing `flight`, make the file executable and move it to somewhere in your `PATH`. For example:
+
+```bash
+chmod +x flight
+sudo mv flight /usr/local/bin/flight
+```
+
+### Updating
+
+You can update Flight with `flight self-update`, or by repeating the installation steps.
 
 ## Getting Started
 
