@@ -1,9 +1,9 @@
 # Flight ✈
 
-<a href="https://github.com/sitepilot/flight/actions"><img src="https://github.com/sitepilot/flight/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/sitepilot/flight"><img src="https://img.shields.io/packagist/dt/sitepilot/flight" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/sitepilot/flight"><img src="https://img.shields.io/packagist/v/sitepilot/flight" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/sitepilot/flight"><img src="https://img.shields.io/packagist/l/sitepilot/flight" alt="License"></a>
+<a href="https://github.com/sitepilot/flight/releases"><img src="https://img.shields.io/github/v/release/sitepilot/flight" alt="Latest Version"></a>
+<a href="https://github.com/sitepilot/flight/releases"><img src="https://img.shields.io/github/downloads/sitepilot/flight/total" alt="Total Downloads"></a>
+<a href="https://github.com/sitepilot/flight/actions"><img src="https://img.shields.io/github/actions/workflow/status/sitepilot/flight/tests.yml" alt="Build Status"></a>
+<a href="https://github.com/sitepilot/flight"><img src="https://img.shields.io/github/license/sitepilot/flight" alt="License"></a>
 
 ## Introduction
 
