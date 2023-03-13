@@ -25,7 +25,7 @@ php -r "copy('https://github.com/sitepilot/flight/releases/latest/download/fligh
 Next, check the phar file to verify that it’s working:
 
 ```bash
-php flight
+php flight --version
 ```
 
 To use Flight from the command line by typing `flight`, make the file executable and move it to somewhere in your `PATH`. For example:
