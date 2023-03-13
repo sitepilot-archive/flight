@@ -4,6 +4,7 @@
         "app",
         "bootstrap",
         "config",
+        "lang",
         "vendor"
     ],
     "files": [
