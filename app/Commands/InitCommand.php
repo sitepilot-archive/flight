@@ -18,11 +18,17 @@ class InitCommand extends Command
         if (!File::exists($file)) {
             File::put($file,
                 Yaml::dump([
+                    'url' => '',
                     'remote' => [
                         'host' => '',
                         'port' => 22,
                         'user' => 'root',
                         'path' => ''
+                    ],
+                    'sync' => [
+                        'ignore' => [
+                            '.idea', '.fleet', '.vscode', '.DS_Store', 'node_modules'
+                        ]
                     ]
                 ], 99, 2));
         } else {

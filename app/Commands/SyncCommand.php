@@ -17,9 +17,7 @@ class SyncCommand extends Command
             $this->localCmd(['mutagen', 'sync', 'list', $this->config->id()])
                 ->setTty(false)->mustRun();
         } catch (Exception) {
-            $ignores = $this->config->get('sync.ignore', [
-                '.idea', '.vscode', '.DS_Store', 'node_modules', '/wp-content/uploads'
-            ]);
+            $ignores = $this->config->get('sync.ignore', []);
 
             $ignores = Arr::map($ignores, function ($ignore) {
                 return "--ignore=$ignore";

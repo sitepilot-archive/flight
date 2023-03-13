@@ -30,12 +30,18 @@ configuration for syncing files en running commands on the remote host or contai
 The configuration will be stored in `<project-root>/flight.yml` and is composed of the following parts:
 
 ```yaml
+url: https://sitepilot.io # the project url
+
 remote:
-    host: '1.2.3.4'        # the remote ssh host
-    port: 22               # the remote ssh port
-    user: 'root'           # the remote ssh user
-    path: '~/code/project' # the remote project path
-    shell: 'bash'          # the remote shell
+  host: 1.2.3.4           # the remote ssh host
+  port: 22                # the remote ssh port
+  user: root              # the remote ssh user
+  path: ~/code/project    # the remote project path
+  shell: bash             # the remote shell
+
+sync:
+  ignore:                 # list of ignored files and folders
+    - node_modules
 ```
 
 ## Commands
@@ -83,9 +89,9 @@ instead of on the host. Add the following configuration to the project to start 
 
 ```yaml
 container:
-    name: 'app'   # the remote container name
-    user: 'app'   # the remote container user
-    shell: 'bash' # the remote container shell
+  name: app   # the remote container name
+  user: app   # the remote container user
+  shell: bash # the remote container shell
 ```
 
 ### Commands
