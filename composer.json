@@ -1,0 +1,63 @@
+{
+    "name": "sitepilot/flight",
+    "description": "Cloud-based development using your local tools.",
+    "keywords": [
+        "cloud",
+        "framework",
+        "laravel",
+        "development",
+        "console",
+        "cli"
+    ],
+    "homepage": "https://sitepilot.io",
+    "type": "project",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/sitepilot/flight/issues",
+        "source": "https://github.com/sitepilot/flight"
+    },
+    "authors": [
+        {
+            "name": "Sitepilot",
+            "email": "support@sitepilot.io"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "illuminate/support": "^10.3",
+        "illuminate/validation": "^10.3",
+        "laravel-zero/framework": "^10.0",
+        "nunomaduro/termwind": "^1.15",
+        "symfony/yaml": "^6.2"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.5",
+        "mockery/mockery": "^1.5.1",
+        "pestphp/pest": "^1.22.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "bin": [
+        "flight"
+    ]
+}
