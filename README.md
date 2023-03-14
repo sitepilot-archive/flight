@@ -61,8 +61,17 @@ remote:
   shell: bash             # the remote shell
 
 sync:
-  ignore: # list of ignored files and folders
+  ignore:                 # list of ignored files and folders
     - node_modules
+
+database:
+  ssh: false              # connect to database over ssh
+  type: mariadb           # the database type, default: mariadb (e.g. mariadb, mysql, microsoftsqlserver)
+  host: 1.2.3.4           # the database host, default: remote.host (or 127.0.0.1 for ssh)
+  port: 3306              # the database port, default: 3306
+  name: sandbox           # the database name
+  user: user              # the database username
+  password: supersecret   # the database user password
 ```
 
 ## Commands
@@ -94,6 +103,9 @@ flight sync:terminate
 
 # Display all file synchronization sessions
 flight sync:list
+
+# Open database connnection string (this will open TablePlus if installed)
+flight db
 
 # Run Laravel Artisan command
 flight artisan <command>
