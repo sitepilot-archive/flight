@@ -5,14 +5,11 @@
 <a href="https://github.com/sitepilot/flight/actions"><img src="https://img.shields.io/github/actions/workflow/status/sitepilot/flight/tests.yml" alt="Build Status"></a>
 <a href="https://github.com/sitepilot/flight"><img src="https://img.shields.io/github/license/sitepilot/flight" alt="License"></a>
 
-Remote development using your local tools.
+## Introduction
 
-__Highlights:__
-
-* Manage remote projects.
-* Execute remote commands.
-* Work with remote containers.
-* Real-time file synchronization.
+Flight is a tool for working with code in remote development environments. It helps you to manage your projects,
+execute remote commands, work with remote containers and enables real-time file synchronization
+using [Mutagen](https://mutagen.io).
 
 ## Installation
 
@@ -62,11 +59,11 @@ remote:
   path: ~/code/project    # the remote project path
   shell: bash             # the remote shell
 
-links:                    # list of project links (key-value)
+links: # list of project links (key-value)
   preview: 'https://sitepilot.io'
 
 sync:
-  ignore:                 # list of ignored files and folders
+  ignore: # list of ignored files and folders
     - node_modules
 
 database:
