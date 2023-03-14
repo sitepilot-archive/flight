@@ -35,6 +35,9 @@ your `PATH`. For example:
 
 ```bash
 chmod +x flight
+```
+
+```bash
 sudo mv flight /usr/local/bin/flight
 ```
 
