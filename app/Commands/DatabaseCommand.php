@@ -27,7 +27,10 @@ class DatabaseCommand extends Command
             'remote.password' => 'The :attribute field is required for an SSH database connection on WSL.'
         ]);
 
+        $parameters = ['env=development', 'name=' . $this->config->id()];
+
         if ($this->config->get('database.ssh')) {
+            $parameters[] = 'usePrivateKey=true';
             $url = sprintf(
                 '%s+ssh://%s:%s@%s:%s/%s:%s@%s:%s/%s',
                 urlencode($this->config->get('database.type', 'mariadb')),
@@ -53,10 +56,11 @@ class DatabaseCommand extends Command
             );
         }
 
-        $url = str_replace([':NULL', 'NULL'], '', $url);
+        $url = str_replace(
+            [':NULL', 'NULL'], '', $url . '?' . implode('&', $parameters)
+        );
 
         if ($this->option('show')) {
-            $url .= sprintf('?enviroment=development&name=%s', $this->config->id());
             $this->info($url);
         } elseif ($this->isWSL()) {
             $this->localCmd(['/mnt/c/Windows/explorer.exe', $url])->run();
