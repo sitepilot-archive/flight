@@ -12,7 +12,8 @@ environments.
 
 ## Installation
 
-Downloading the phar file is the recommended installation method for most users. Before installing Flight, please make sure your environment meets the minimum requirements:
+Downloading the phar file is the recommended installation method for most users. Before installing Flight, please make
+sure your environment meets the minimum requirements:
 
 * UNIX-like environment (Linux, MacOS, WSL)
 * PHP 8.1 or later
@@ -28,7 +29,8 @@ Next, check the phar file to verify that it’s working:
 php flight --version
 ```
 
-To use Flight from the command line by typing `flight`, make the file executable and move it to somewhere in your `PATH`. For example:
+To use Flight from the command line by typing `flight`, make the file executable and move it to somewhere in
+your `PATH`. For example:
 
 ```bash
 chmod +x flight
@@ -37,7 +39,7 @@ sudo mv flight /usr/local/bin/flight
 
 ### Updating
 
-You can update Flight with `flight self-update`, or by repeating the installation steps.
+You can update Flight with `sudo flight self-update`, or by repeating the installation steps.
 
 ## Getting Started
 
@@ -84,14 +86,14 @@ flight sync
 # Display file synchronization status 
 flight sync:status
 
-# Display all file synchronization sessions
-flight sync:status --all
-
 # Pause file synchronization
 flight sync:pause
 
 # Terminate file synchronization
 flight sync:terminate
+
+# Display all file synchronization sessions
+flight sync:list
 
 # Run Laravel Artisan command
 flight artisan <command>
