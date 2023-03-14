@@ -4,7 +4,7 @@ namespace App\Commands;
 
 class DatabaseCommand extends Command
 {
-    protected $signature = 'db';
+    protected $signature = 'db {--show}';
 
     protected $description = 'Open database connection string';
 
@@ -55,7 +55,10 @@ class DatabaseCommand extends Command
 
         $url = str_replace([':NULL', 'NULL'], '', $url);
 
-        if ($this->isWSL()) {
+        if ($this->option('show')) {
+            $url .= sprintf('?enviroment=development&name=%s', $this->config->id());
+            $this->info($url);
+        } elseif ($this->isWSL()) {
             $this->localCmd(['/mnt/c/Windows/explorer.exe', $url])->run();
         } else {
             $this->localCmd(['open', $url])->run();

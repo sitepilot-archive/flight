@@ -107,6 +107,9 @@ flight sync:list
 # Open database connnection string (this will open TablePlus if installed)
 flight db
 
+# Show database connnection string (copy this string to manually import the connection into TablePlus)
+flight db --show
+
 # Run Laravel Artisan command
 flight artisan <command>
 
