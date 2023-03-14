@@ -18,12 +18,14 @@ class InitCommand extends Command
         if (!File::exists($file)) {
             File::put($file,
                 Yaml::dump([
-                    'url' => '',
                     'remote' => [
                         'host' => '',
                         'port' => 22,
                         'user' => 'root',
                         'path' => ''
+                    ],
+                    'links' => [
+                        'preview' => '',
                     ],
                     'sync' => [
                         'ignore' => [
