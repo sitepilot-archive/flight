@@ -4,9 +4,9 @@ namespace App\Commands;
 
 class OpenCommand extends Command
 {
-    protected $signature = 'open {link-key?}';
+    protected $signature = 'open {link? : The link key (e.g. preview)}';
 
-    protected $description = 'Open the project URL';
+    protected $description = 'Open a project link';
 
     public function handle(): void
     {
@@ -17,8 +17,8 @@ class OpenCommand extends Command
 
         $links = $this->config->get('links', []);
 
-        if (!empty($links[$this->argument('link-key')])) {
-            $url = $links[$this->argument('link-key')];
+        if (!empty($links[$this->argument('link')])) {
+            $url = $links[$this->argument('link')];
         } elseif (count($links) == 1) {
             $url = reset($links);
         } else {

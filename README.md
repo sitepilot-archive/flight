@@ -85,7 +85,7 @@ flight config
 flight shell
 
 # Open a project link in the default browser
-flight open {link-key?}
+flight open {link}
 
 # Open project files in explorer / finder 
 flight folder
@@ -112,10 +112,10 @@ flight db
 flight db --show
 
 # Run Laravel Artisan command
-flight artisan <command>
+flight artisan {command}
 
 # Run WPCLI command
-flight wp <command>
+flight wp {command}
 ```
 
 ## Working with containers

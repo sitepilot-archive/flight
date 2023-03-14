@@ -4,7 +4,7 @@ namespace App\Commands;
 
 class DatabaseCommand extends Command
 {
-    protected $signature = 'db {--show}';
+    protected $signature = 'db {--show : Show the database connection string}';
 
     protected $description = 'Open database connection string';
 
