@@ -61,7 +61,7 @@ remote:
   shell: bash             # the remote shell
 
 sync:
-  ignore: # list of ignored files and folders
+  ignore:                 # list of ignored files and folders
     - node_modules
 
 database:
