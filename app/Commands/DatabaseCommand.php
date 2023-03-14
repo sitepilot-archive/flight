@@ -10,14 +10,21 @@ class DatabaseCommand extends Command
 
     public function handle(): void
     {
-        $this->config->validate([
+        $rules = [
             'database.type' => ['nullable', 'string'],
             'database.user' => ['required', 'string'],
             'database.password' => ['required', 'string'],
             'database.port' => ['nullable', 'numeric'],
             'database.name' => ['required', 'string'],
-            'database.ssh' => ['nullable', 'boolean'],
-            'remote.password' => ['required_if:database.ssh,true', 'string']
+            'database.ssh' => ['nullable', 'boolean']
+        ];
+
+        if ($this->isWSL()) {
+            $rules['remote.password'] = ['required_if:database.ssh,true', 'string'];
+        }
+
+        $this->config->validate($rules, [
+            'remote.password' => 'The :attribute field is required for an SSH database connection on WSL.'
         ]);
 
         if ($this->config->get('database.ssh')) {
@@ -25,7 +32,7 @@ class DatabaseCommand extends Command
                 '%s+ssh://%s:%s@%s:%s/%s:%s@%s:%s/%s',
                 urlencode($this->config->get('database.type', 'mariadb')),
                 urlencode($this->config->get('remote.user')),
-                urlencode($this->config->get('remote.password')),
+                urlencode($this->config->get('remote.password', 'NULL')),
                 urlencode($this->config->get('remote.host')),
                 urlencode($this->config->get('remote.port', 22)),
                 urlencode($this->config->get('database.user')),
@@ -45,6 +52,8 @@ class DatabaseCommand extends Command
                 urlencode($this->config->get('database.name'))
             );
         }
+
+        $url = str_replace([':NULL', 'NULL'], '', $url);
 
         if ($this->isWSL()) {
             $this->localCmd(['/mnt/c/Windows/explorer.exe', $url])->run();

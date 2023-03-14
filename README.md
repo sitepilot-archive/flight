@@ -67,7 +67,7 @@ sync:
 database:
   ssh: false              # connect to database over ssh
   type: mariadb           # the database type, default: mariadb (e.g. mariadb, mysql, microsoftsqlserver)
-  host: 1.2.3.4           # the database host, default: remote.host (or 127.0.0.1 for SSH)
+  host: 1.2.3.4           # the database host, default: remote.host (or 127.0.0.1 for ssh)
   port: 3306              # the database port, default: 3306
   name: sandbox           # the database name
   user: user              # the database username

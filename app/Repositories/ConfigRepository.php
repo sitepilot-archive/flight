@@ -25,13 +25,17 @@ class ConfigRepository
         for ($i = 0; $i < 4; $i++) {
             $file = $path . DIRECTORY_SEPARATOR . 'flight.yml';
             if (File::isFile($file)) {
-                return $this->file = realpath($file);
+                $this->file = realpath($file);
             } else {
                 $path .= DIRECTORY_SEPARATOR . '..';
             }
         }
 
-        $this->abort("Could not find a flight configuration file.");
+        if (!$this->file) {
+            $this->abort("Could not find a flight configuration file.");
+        }
+
+        return $this->file;
     }
 
     public function path(string $path = ''): string
@@ -64,10 +68,10 @@ class ConfigRepository
         abort($code, $this->config ? "[{$this->name()}] $message" : $message);
     }
 
-    public function validate(array $rules): void
+    public function validate(array $rules, array $messages = []): void
     {
         try {
-            Validator::make($this->loadConfig(), $rules)->validate();
+            Validator::make($this->loadConfig(), $rules, $messages)->validate();
         } catch (ValidationException $e) {
             $this->abort($e->getMessage());
         }
