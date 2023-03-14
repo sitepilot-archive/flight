@@ -5,10 +5,14 @@
 <a href="https://github.com/sitepilot/flight/actions"><img src="https://img.shields.io/github/actions/workflow/status/sitepilot/flight/tests.yml" alt="Build Status"></a>
 <a href="https://github.com/sitepilot/flight"><img src="https://img.shields.io/github/license/sitepilot/flight" alt="License"></a>
 
-## Introduction
+Remote development using your local tools.
 
-Flight is a remote development tool that enables your existing local tools to work with code in remote cloud
-environments.
+__Highlights:__
+
+* Manage remote projects.
+* Execute remote commands.
+* Work with remote containers.
+* Real-time file synchronization.
 
 ## Installation
 
@@ -120,7 +124,7 @@ flight wp {command}
 
 ## Working with containers
 
-Flight is also compatible with (remote) containers. Flight can forward Docker Compose commands and
+Flight is also compatible with remote containers. Flight can forward Docker Compose commands and
 automatically execute shell commands (like `flight exec`, `flight artisan` and `flight wp`) in a container
 instead of on the remote host. Add the following configuration to start working with containers:
 
