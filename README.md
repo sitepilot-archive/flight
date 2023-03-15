@@ -7,7 +7,8 @@
 
 ## Introduction
 
-Flight is a tool for working with code in remote development environments. It helps you to manage your projects,
+About
+Flight is a remote development tool that enables your existing local tools to work with code in remote environments. It helps you to manage your projects,
 execute remote commands, work with remote containers and enables real-time file synchronization
 using [Mutagen](https://mutagen.io).
 

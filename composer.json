@@ -1,6 +1,6 @@
 {
     "name": "sitepilot/flight",
-    "description": "Flight is a tool for working with code in remote development environments.",
+    "description": "Flight is a remote development tool that enables your existing local tools to work with code in remote environments.",
     "keywords": [
         "cloud",
         "framework",
