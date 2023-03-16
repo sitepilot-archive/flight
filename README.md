@@ -52,29 +52,6 @@ You can update Flight with `sudo flight self-update`, or by repeating the instal
 Run `flight init` to create a Flight configuration file in the current project folder. This file contains the
 configuration for syncing files en running commands on the remote host or container.
 
-## Commands
-
-| Command                    | Description                                               |
-|----------------------------|-----------------------------------------------------------|
-| `flight init`              | Initialize configuration                                  |
-| `flight config`            | Display the configuration                                 |
-| `flight shell`             | Start a remote shell                                      |
-| `flight folder`            | Open project folder in explorer / finder                  |
-| `flight open {link}`       | Open a project link in the default browser                |
-| `flight db`                | Open database in [TablePlus](https://tableplus.com/)      |
-| `flight db --show`         | Show database connection string (for import in TablePlus) |
-| `flight sync`              | Start / resume file synchronization                       |
-| `flight sync:status`       | Display file synchronization status                       |
-| `flight sync:pause`        | Pause file synchronization                                |
-| `flight sync:terminate`    | Terminate file synchronization                            |
-| `flight sync:list`         | Display all file synchronization sessions                 |
-| `flight artisan {command}` | Run a Laravel Artisan command                             |
-| `flight wp {command}`      | Run a WPCLI command                                       |
-| `flight ssh {environment}` | SSH into a remote environment                             |
-| `flight compose {command}` | Run a Docker Compose command                              |
-| `flight up {options}`      | Alias for the `docker compose up` command                 |
-| `flight down {options}`    | Alias for the `docker compose down` command               |
-
 ## Configuration
 
 The configuration will be stored in `<project-root>/flight.yml` and is composed of the following sections:
@@ -200,3 +177,26 @@ sync:
   ignore:
     - node_modules
 ```
+
+## Commands
+
+| Command                    | Description                                               |
+|----------------------------|-----------------------------------------------------------|
+| `flight init`              | Initialize configuration                                  |
+| `flight config`            | Display the configuration                                 |
+| `flight shell`             | Start a remote shell                                      |
+| `flight folder`            | Open project folder in explorer / finder                  |
+| `flight open {link}`       | Open a project link in the default browser                |
+| `flight db`                | Open database in [TablePlus](https://tableplus.com/)      |
+| `flight db --show`         | Show database connection string (for import in TablePlus) |
+| `flight sync`              | Start / resume file synchronization                       |
+| `flight sync:status`       | Display file synchronization status                       |
+| `flight sync:pause`        | Pause file synchronization                                |
+| `flight sync:terminate`    | Terminate file synchronization                            |
+| `flight sync:list`         | Display all file synchronization sessions                 |
+| `flight artisan {command}` | Run a Laravel Artisan command                             |
+| `flight wp {command}`      | Run a WPCLI command                                       |
+| `flight ssh {environment}` | SSH into a remote environment                             |
+| `flight compose {command}` | Run a Docker Compose command                              |
+| `flight up {options}`      | Alias for the `docker compose up` command                 |
+| `flight down {options}`    | Alias for the `docker compose down` command               |
