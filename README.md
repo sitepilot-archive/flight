@@ -52,12 +52,14 @@ configuration for syncing files en running commands on the remote host or contai
 
 The configuration will be stored in `<project-root>/flight.yml` and is composed of the following sections:
 
-* [Environment](#environment)
+* [Environments](#environments)
 * [Global](#global)
 
-### Environment
+### Environments
 
-The `<env>` section contains the remote host configuration.
+The Flight configuration file is a YAML file defining one or more environments. By default the `init` command adds one
+environment named `development`. The table below contains a list of all configuration options supported by an
+environment definition.
 
 | Key                       | Default      | Description                                                 |
 |---------------------------|--------------|-------------------------------------------------------------|
@@ -77,29 +79,62 @@ The `<env>` section contains the remote host configuration.
 | `<env>.database.user`     | -            | The database user                                           |
 | `<env>.database.password` | -            | The database user                                           |
 | `<env>.sync.ignore`       | -            | A list of files and folders to ignore                       |
+| `<env>.permissions`       | -            | A list of allowed (destructive) commands (e.g. sync)        |
+
+#### Example
+
+```yaml
+development:
+  host: 1.2.3.4
+  port: 22
+  user: captain
+  path: ~/code/project
+  sync:
+    ignore:
+      - node_modules
+  permissions:
+    - sync
+```
+
+### Global
+
+The `global` section contains configuration options which apply to all environments. The table below contains a list of
+all available options supported by the global definition.
+
+| Key              | Default | Description                                  |
+|------------------|---------|----------------------------------------------|
+| `global.links.*` | -       | A list of external project links (key-value) |
+
+#### Example
+
+```yaml
+global:
+  preview: https://sitepilot.io
+  github: https://github.com/sitepilot/flight
+```
 
 ## Commands
 
-| Command                    | Description                                               |
-|----------------------------|-----------------------------------------------------------|
-| `flight init`              | Initialize configuration                                  |
-| `flight config`            | Display the configuration                                 |
-| `flight shell`             | Start a remote shell                                      |
-| `flight folder`            | Open project folder in explorer / finder                  |
-| `flight open {link}`       | Open a project link in the default browser                |
-| `flight db`                | Open database in [TablePlus](https://tableplus.com/)      |
-| `flight db --show`         | Show database connection string (for import in TablePlus) |
-| `flight sync`              | Start / resume file synchronization                       |
-| `flight sync:status`       | Display file synchronization status                       |
-| `flight sync:pause`        | Pause file synchronization                                |
-| `flight sync:terminate`    | Terminate file synchronization                            |
-| `flight sync:list`         | Display all file synchronization sessions                 |
-| `flight artisan {command}` | Run a Laravel Artisan command                             |
-| `flight wp {command}`      | Run a WPCLI command                                       |
-| `flight ssh {environment}` | SSH into a remote environment                             |
-| `flight compose {command}` | Run a Docker Compose command                              |
-| `flight up {options}`      | Alias for the `docker compose up` command                 |
-| `flight down {options}`    | Alias for the `docker compose down` command               |
+| Command                    | Permission | Description                                               |
+|----------------------------|------------|-----------------------------------------------------------|
+| `flight init`              | -          | Initialize configuration                                  |
+| `flight config`            | -          | Display the configuration                                 |
+| `flight shell`             | -          | Start a remote shell                                      |
+| `flight folder`            | -          | Open project folder in explorer / finder                  |
+| `flight open {link}`       | -          | Open a project link in the default browser                |
+| `flight db`                | -          | Open database in [TablePlus](https://tableplus.com/)      |
+| `flight db --show`         | -          | Show database connection string (for import in TablePlus) |
+| `flight sync`              | sync       | Start / resume file synchronization                       |
+| `flight sync:status`       | sync       | Display file synchronization status                       |
+| `flight sync:pause`        | sync       | Pause file synchronization                                |
+| `flight sync:terminate`    | sync       | Terminate file synchronization                            |
+| `flight sync:list`         | -          | Display all file synchronization sessions                 |
+| `flight artisan {command}` | -          | Run a Laravel Artisan command                             |
+| `flight wp {command}`      | -          | Run a WPCLI command                                       |
+| `flight ssh {environment}` | -          | SSH into a remote environment                             |
+| `flight compose {command}` | -          | Run a Docker Compose command                              |
+| `flight up {options}`      | -          | Alias for the `docker compose up` command                 |
+| `flight down {options}`    | -          | Alias for the `docker compose down` command               |
 
 ## Updating
 
