@@ -12,10 +12,8 @@ class SyncTerminateCommand extends Command
 
     public function handle(): void
     {
-        $this->askForEnv(
-            collect($this->config->all())->where('sync', '!=', null)->toArray()
-        );
-        
+        $this->askForEnv('sync');
+
         $this->task('Terminate file synchronization', function () {
             try {
                 $this->localCmd(['mutagen', 'sync', 'terminate', $this->config->id()])

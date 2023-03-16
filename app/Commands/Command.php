@@ -26,13 +26,23 @@ abstract class Command extends BaseCommand
         $this->config = $config;
     }
 
-    public function askForEnv(array $environments = null): void
+    public function askForEnv(?string $permission = null): void
     {
-        if (!$environments) {
-            $environments = $this->config->all();
-        }
+        $environments = $this->config->all();
 
         unset($environments['global']);
+
+        if ($permission) {
+            $environments = collect($this->config->all())
+                ->whereNotNull('permissions')
+                ->filter(function (array $environment) use ($permission) {
+                    return in_array($permission, $environment['permissions']);
+                })->toArray();
+        }
+
+        if (!$environments) {
+            $this->abort('No environments found' . ($permission ? " with permission [$permission]." : "."));
+        }
 
         if (count($environments) == 1) {
             $env = array_key_first($environments);

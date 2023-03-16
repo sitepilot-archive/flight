@@ -27,6 +27,9 @@ class InitCommand extends Command
                             'ignore' => [
                                 '.idea', '.fleet', '.vscode', '.DS_Store', 'flight.yml', 'node_modules'
                             ]
+                        ],
+                        'permissions' => [
+                            'sync'
                         ]
                     ]
                 ], 99, 2));

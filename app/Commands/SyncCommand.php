@@ -13,9 +13,7 @@ class SyncCommand extends Command
 
     public function handle(): void
     {
-        $this->askForEnv(
-            collect($this->config->all())->where('sync', '!=', null)->toArray()
-        );
+        $this->askForEnv('sync');
 
         $this->config->validate([
             'host' => ['required', 'string'],

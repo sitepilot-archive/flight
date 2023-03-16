@@ -12,9 +12,7 @@ class SyncPauseCommand extends Command
 
     public function handle(): void
     {
-        $this->askForEnv(
-            collect($this->config->all())->where('sync', '!=', null)->toArray()
-        );
+        $this->askForEnv('sync');
 
         $this->task('Pause file synchronization', function () {
             try {
