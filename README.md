@@ -43,10 +43,6 @@ chmod +x flight
 sudo mv flight /usr/local/bin/flight
 ```
 
-### Updating
-
-You can update Flight with `sudo flight self-update`, or by repeating the installation steps.
-
 ## Getting Started
 
 Run `flight init` to create a Flight configuration file in the current project folder. This file contains the
@@ -200,3 +196,7 @@ sync:
 | `flight compose {command}` | Run a Docker Compose command                              |
 | `flight up {options}`      | Alias for the `docker compose up` command                 |
 | `flight down {options}`    | Alias for the `docker compose down` command               |
+
+## Updating
+
+You can update Flight with `sudo flight self-update`, or by repeating the installation steps.
