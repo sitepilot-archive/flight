@@ -56,6 +56,7 @@ configuration for syncing files en running commands on the remote host or contai
 
 | Command                    | Description                                               |
 |----------------------------|-----------------------------------------------------------|
+| `flight init`              | Initialize configuration                                  |
 | `flight config`            | Display the configuration                                 |
 | `flight shell`             | Start a remote shell                                      |
 | `flight folder`            | Open project folder in explorer / finder                  |
