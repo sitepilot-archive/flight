@@ -12,6 +12,10 @@ class SyncStatusCommand extends Command
 
     public function handle(): void
     {
+        $this->askForEnv(
+            collect($this->config->all())->where('sync', '!=', null)->toArray()
+        );
+
         try {
             $process = $this->localCmd(['mutagen', 'sync', 'list', '--long', $this->config->id()])
                 ->setTty(false)

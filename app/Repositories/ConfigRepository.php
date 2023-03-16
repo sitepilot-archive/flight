@@ -2,8 +2,10 @@
 
 namespace App\Repositories;
 
+use Hashids\Hashids;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -11,6 +13,8 @@ use Symfony\Component\Yaml\Yaml;
 
 class ConfigRepository
 {
+    protected ?string $env = null;
+
     protected ?string $file = null;
 
     protected ?array $config = null;
@@ -38,6 +42,20 @@ class ConfigRepository
         return $this->file;
     }
 
+    public function setEnv(string $env): void
+    {
+        if (!isset($this->config[$env])) {
+            $this->abort("Could not find [$env] environment in configuration.");
+        }
+
+        $this->env = $env;
+    }
+
+    public function env(): string
+    {
+        return $this->env;
+    }
+
     public function path(string $path = ''): string
     {
         return dirname($this->file()) . ($path ? DIRECTORY_SEPARATOR . $path : $path);
@@ -50,12 +68,16 @@ class ConfigRepository
 
     public function id(): string
     {
-        return Str::slug('fl-' . $this->name());
+        return Str::slug($this->name() . ($this->env ? "-" . hash('crc32', $this->env) : ""));
     }
 
     public function get(string $key, mixed $default = null): mixed
     {
-        return Arr::get($this->loadConfig(), $key, $default);
+        return Arr::get(
+            $this->loadConfig(),
+            $this->env ? sprintf('%s.%s', $this->env, $key) : $key,
+            $default
+        );
     }
 
     public function all(): array
@@ -65,13 +87,17 @@ class ConfigRepository
 
     public function abort(string $message, int $code = 1): void
     {
-        abort($code, $this->config ? "[{$this->name()}] $message" : $message);
+        abort($code, $this->env ? "[{$this->env}] $message" : $message);
     }
 
     public function validate(array $rules, array $messages = []): void
     {
+        $config = $this->loadConfig();
+
+        if ($this->env) $config = $config[$this->env];
+
         try {
-            Validator::make($this->loadConfig(), $rules, $messages)->validate();
+            Validator::make($config, $rules, $messages)->validate();
         } catch (ValidationException $e) {
             $this->abort($e->getMessage());
         }
@@ -83,20 +109,6 @@ class ConfigRepository
             return $this->config;
         }
 
-        $config = Yaml::parse(File::get($this->file())) ?: [];
-
-        try {
-            Validator::make($config, [
-                'remote' => ['required', 'array'],
-                'remote.user' => ['required', 'string'],
-                'remote.host' => ['required', 'string'],
-                'remote.path' => ['required', 'string'],
-                'sync.ignore' => ['nullable', 'array']
-            ])->validate();
-        } catch (ValidationException $e) {
-            $this->abort($e->getMessage());
-        }
-
-        return $this->config = $config;
+        return $this->config = Yaml::parse(File::get($this->file())) ?: [];
     }
 }

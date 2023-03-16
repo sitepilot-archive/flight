@@ -11,11 +11,11 @@ class OpenCommand extends Command
     public function handle(): void
     {
         $this->config->validate([
-            'links' => ['required', 'array'],
-            'links.*' => ['required', 'url']
+            'global.links' => ['required', 'array'],
+            'global.links.*' => ['required', 'url']
         ]);
 
-        $links = $this->config->get('links', []);
+        $links = $this->config->get('global.links', []);
 
         if (!empty($links[$this->argument('link')])) {
             $url = $links[$this->argument('link')];
