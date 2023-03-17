@@ -24,7 +24,7 @@ class OpenCommand extends Command
         } else {
             $url = $links[$this->choice(
                 'Which link would you like to open?',
-                $links,
+                array_keys($links),
                 array_key_first($links)
             )];
         }
