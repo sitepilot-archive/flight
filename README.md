@@ -106,8 +106,9 @@ all configuration options supported by the global definition.
 
 ```yaml
 global:
-  preview: https://sitepilot.io
-  github: https://github.com/sitepilot/flight
+  links:
+    preview: https://sitepilot.io
+    github: https://github.com/sitepilot/flight
 ```
 
 ## Commands
