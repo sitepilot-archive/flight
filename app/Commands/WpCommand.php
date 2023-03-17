@@ -14,6 +14,8 @@ class WpCommand extends Command
     {
         $this->assertWordPressProject();
 
+        $this->askForEnv();
+
         $command = explode(" ", $this->input->__toString());
 
         if ($this->shouldRunInContainer()) {

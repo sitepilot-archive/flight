@@ -26,6 +26,39 @@ abstract class Command extends BaseCommand
         $this->config = $config;
     }
 
+    public function askForEnv(?string $permission = null): void
+    {
+        $environments = $this->config->all();
+
+        unset($environments['global']);
+
+        if ($permission) {
+            $environments = collect($this->config->all())
+                ->whereNotNull('permissions')
+                ->filter(function (array $environment) use ($permission) {
+                    return in_array($permission, $environment['permissions']);
+                })->toArray();
+        }
+
+        if (!$environments) {
+            $this->abort('No environments found' . ($permission ? " with permission [$permission]." : "."));
+        }
+
+        if (count($environments) == 1) {
+            $env = array_key_first($environments);
+        } elseif (isset($environments[$this->option('env')])) {
+            $env = $this->option('env');
+        } else {
+            $env = $this->choice(
+                "In which environment would you like to run the command?",
+                array_keys($environments),
+                array_key_first($environments)
+            );
+        }
+
+        $this->config->setEnv($env);
+    }
+
     public function localCmd(array $command, int $timeout = 0): Process
     {
         return (new Process($command))
@@ -37,12 +70,12 @@ abstract class Command extends BaseCommand
     {
         if (is_array($command)) $command = implode(" ", $command);
 
-        $remotePath = $this->config->get('remote.path') . str_replace($this->config->path(), '', getcwd());
+        $remotePath = $this->config->get('path') . str_replace($this->config->path(), '', getcwd());
 
         $command = [
-            'ssh', '-t', '-o', 'LogLevel=QUIET', '-p', $this->config->get('remote.port', 22),
-            $this->config->get('remote.user') . '@' . $this->config->get('remote.host'),
-            "cd {$this->config->get('remote.workdir', $remotePath)} ; $command"
+            'ssh', '-t', '-o', 'LogLevel=QUIET', '-p', $this->config->get('port', 22),
+            $this->config->get('user') . '@' . $this->config->get('host'),
+            "cd $remotePath ; $command"
         ];
 
         return (new Process($command, $localWorkdir ?? null))

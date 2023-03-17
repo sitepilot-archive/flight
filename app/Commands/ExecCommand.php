@@ -12,6 +12,8 @@ class ExecCommand extends Command
 
     public function handle(): void
     {
+        $this->askForEnv();
+
         $command = explode(" ", $this->input->__toString());
 
         unset($command[0]); // remove exec

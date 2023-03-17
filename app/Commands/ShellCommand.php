@@ -2,8 +2,6 @@
 
 namespace App\Commands;
 
-use Exception;
-
 class ShellCommand extends Command
 {
     protected $signature = 'shell {--host}';
@@ -12,17 +10,15 @@ class ShellCommand extends Command
 
     public function handle(): void
     {
-        try {
-            if (
-                !$this->option('host')
-                && $this->shouldRunInContainer()
-            ) {
-                $this->composeCmd([$this->config->get('container.shell', 'bash')])->mustRun();
-            } else {
-                $this->remoteCmd([$this->config->get('remote.shell', 'bash')])->run();
-            }
-        } catch (Exception) {
-            //
+        $this->askForEnv();
+
+        if (
+            !$this->option('host')
+            && $this->shouldRunInContainer()
+        ) {
+            $this->composeCmd([$this->config->get('container.shell', 'bash')])->run();
+        } else {
+            $this->remoteCmd([$this->config->get('shell', 'bash')])->run();
         }
     }
 }

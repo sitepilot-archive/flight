@@ -13,6 +13,15 @@ class SyncCommand extends Command
 
     public function handle(): void
     {
+        $this->askForEnv('sync');
+
+        $this->config->validate([
+            'host' => ['required', 'string'],
+            'user' => ['required', 'string'],
+            'path' => ['required', 'string'],
+            'port' => ['nullable', 'numeric']
+        ]);
+
         try {
             $this->localCmd(['mutagen', 'sync', 'list', $this->config->id()])
                 ->setTty(false)->mustRun();
@@ -27,7 +36,7 @@ class SyncCommand extends Command
                 $this->localCmd(array_merge(
                     ['mutagen', 'sync', 'create', '--name=' . $this->config->id(), '--default-directory-mode=0755', '--default-file-mode=0644'],
                     $ignores,
-                    [$this->config->path(), $this->config->get('remote.user') . '@' . $this->config->get('remote.host') . ':' . $this->config->get('remote.port', 22) . ':' . $this->config->get('remote.path')]
+                    [$this->config->path(), $this->config->get('user') . '@' . $this->config->get('host') . ':' . $this->config->get('port', 22) . ':' . $this->config->get('path')]
                 ))
                     ->mustRun();
             });

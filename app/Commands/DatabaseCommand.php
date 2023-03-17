@@ -10,6 +10,8 @@ class DatabaseCommand extends Command
 
     public function handle(): void
     {
+        $this->askForEnv();
+
         $rules = [
             'database.type' => ['nullable', 'string'],
             'database.user' => ['required', 'string'],
@@ -20,24 +22,24 @@ class DatabaseCommand extends Command
         ];
 
         if ($this->isWSL()) {
-            $rules['remote.password'] = ['required_if:database.ssh,true', 'string'];
+            $rules['password'] = ['required_if:database.ssh,true', 'string'];
         }
 
         $this->config->validate($rules, [
-            'remote.password' => 'The :attribute field is required for an SSH database connection on WSL.'
+            'password' => 'The :attribute field is required for an SSH database connection on WSL.'
         ]);
 
-        $parameters = ['env=development', 'name=' . $this->config->id()];
+        $parameters = ['env=' . $this->config->envTag(), 'name=' . $this->config->id()];
 
         if ($this->config->get('database.ssh')) {
             $parameters[] = 'usePrivateKey=true';
             $url = sprintf(
                 '%s+ssh://%s:%s@%s:%s/%s:%s@%s:%s/%s',
                 urlencode($this->config->get('database.type', 'mariadb')),
-                urlencode($this->config->get('remote.user')),
-                urlencode($this->config->get('remote.password', 'NULL')),
-                urlencode($this->config->get('remote.host')),
-                urlencode($this->config->get('remote.port', 22)),
+                urlencode($this->config->get('user')),
+                urlencode($this->config->get('password', 'NULL')),
+                urlencode($this->config->get('host')),
+                urlencode($this->config->get('port', 22)),
                 urlencode($this->config->get('database.user')),
                 urlencode($this->config->get('database.password')),
                 urlencode($this->config->get('database.host', '127.0.0.1')),
@@ -50,7 +52,7 @@ class DatabaseCommand extends Command
                 urlencode($this->config->get('database.type', 'mariadb')),
                 urlencode($this->config->get('database.user')),
                 urlencode($this->config->get('database.password')),
-                urlencode($this->config->get('database.host', $this->config->get('remote.host'))),
+                urlencode($this->config->get('database.host', $this->config->get('host'))),
                 urlencode($this->config->get('database.port', 3306)),
                 urlencode($this->config->get('database.name'))
             );

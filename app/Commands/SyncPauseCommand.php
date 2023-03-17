@@ -12,6 +12,8 @@ class SyncPauseCommand extends Command
 
     public function handle(): void
     {
+        $this->askForEnv('sync');
+
         $this->task('Pause file synchronization', function () {
             try {
                 $this->localCmd(['mutagen', 'sync', 'pause', $this->config->id()])
