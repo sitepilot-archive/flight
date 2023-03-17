@@ -2,10 +2,8 @@
 
 namespace App\Repositories;
 
-use Hashids\Hashids;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -56,6 +54,20 @@ class ConfigRepository
         return $this->env;
     }
 
+    public function envTag(): string
+    {
+        $map = [
+            'dev' => 'development',
+            'develop' => 'development',
+            'prd' => 'production',
+            'prod' => 'production',
+            'stg' => 'staging',
+            'test' => 'testing'
+        ];
+
+        return $map[$this->env] ?? $this->env;
+    }
+
     public function path(string $path = ''): string
     {
         return dirname($this->file()) . ($path ? DIRECTORY_SEPARATOR . $path : $path);
@@ -68,7 +80,7 @@ class ConfigRepository
 
     public function id(): string
     {
-        return Str::slug($this->name() . ($this->env ? "-" . hash('crc32', $this->env) : ""));
+        return Str::slug($this->name() . ($this->env ? "-" . $this->env : ""));
     }
 
     public function get(string $key, mixed $default = null): mixed

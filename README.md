@@ -52,7 +52,7 @@ in `<project-root>/flight.yml` and is composed of the following definitions:
 ## Configuration
 
 The Flight configuration file is a YAML file defining one or more environments. By default, the `init` command adds one
-environment named `development`.
+environment named `dev`.
 
 ### Environments
 
@@ -81,7 +81,7 @@ The table below contains a list of all configuration options supported by an env
 #### Example
 
 ```yaml
-development:
+dev:
   host: 1.2.3.4
   port: 22
   user: captain

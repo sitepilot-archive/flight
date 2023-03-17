@@ -29,7 +29,7 @@ class DatabaseCommand extends Command
             'password' => 'The :attribute field is required for an SSH database connection on WSL.'
         ]);
 
-        $parameters = ['env=development', 'name=' . $this->config->id()];
+        $parameters = ['env=' . $this->config->envTag(), 'name=' . $this->config->id()];
 
         if ($this->config->get('database.ssh')) {
             $parameters[] = 'usePrivateKey=true';

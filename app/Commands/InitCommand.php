@@ -18,7 +18,7 @@ class InitCommand extends Command
         if (!File::exists($file)) {
             File::put($file,
                 Yaml::dump([
-                    'development' => [
+                    'dev' => [
                         'host' => '',
                         'port' => 22,
                         'user' => 'root',
