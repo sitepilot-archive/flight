@@ -75,7 +75,7 @@ abstract class Command extends BaseCommand
         $command = [
             'ssh', '-t', '-o', 'LogLevel=QUIET', '-p', $this->config->get('port', 22),
             $this->config->get('user') . '@' . $this->config->get('host'),
-            "cd {$this->config->get('workdir', $remotePath)} ; $command"
+            "cd $remotePath ; $command"
         ];
 
         return (new Process($command, $localWorkdir ?? null))
