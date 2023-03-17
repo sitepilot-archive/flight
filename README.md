@@ -9,8 +9,7 @@
 
 Flight is a remote development tool that enables your existing local tools to work with code in remote environments. It
 helps you to manage your projects, execute remote commands, work with remote containers and enables real-time file
-synchronization
-using [Mutagen](https://mutagen.io).
+synchronization using [Mutagen](https://mutagen.io).
 
 ## Installation
 
@@ -45,7 +44,7 @@ sudo mv flight /usr/local/bin/flight
 ## Getting Started
 
 Run `flight init` to create a Flight configuration file in the current project folder. The configuration will be stored
-in `<project-root>/flight.yml` and is composed of the following sections:
+in `<project-root>/flight.yml` and is composed of the following definitions:
 
 * [Environments](#environments)
 * [Global](#global)
