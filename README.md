@@ -7,10 +7,9 @@
 
 ## Introduction
 
-About
 Flight is a remote development tool that enables your existing local tools to work with code in remote environments. It
-helps you to manage your projects,
-execute remote commands, work with remote containers and enables real-time file synchronization
+helps you to manage your projects, execute remote commands, work with remote containers and enables real-time file
+synchronization
 using [Mutagen](https://mutagen.io).
 
 ## Installation
@@ -45,21 +44,20 @@ sudo mv flight /usr/local/bin/flight
 
 ## Getting Started
 
-Run `flight init` to create a Flight configuration file in the current project folder. This file contains the
-configuration for syncing files en running commands on the remote host or container.
-
-## Configuration
-
-The configuration will be stored in `<project-root>/flight.yml` and is composed of the following sections:
+Run `flight init` to create a Flight configuration file in the current project folder. The configuration will be stored
+in `<project-root>/flight.yml` and is composed of the following sections:
 
 * [Environments](#environments)
 * [Global](#global)
 
+## Configuration
+
+The Flight configuration file is a YAML file defining one or more environments. By default, the `init` command adds one
+environment named `development`.
+
 ### Environments
 
-The Flight configuration file is a YAML file defining one or more environments. By default the `init` command adds one
-environment named `development`. The table below contains a list of all configuration options supported by an
-environment definition.
+The table below contains a list of all configuration options supported by an environment definition.
 
 | Key                       | Default      | Description                                                 |
 |---------------------------|--------------|-------------------------------------------------------------|
@@ -99,7 +97,7 @@ development:
 ### Global
 
 The `global` section contains configuration options which apply to all environments. The table below contains a list of
-all available options supported by the global definition.
+all configuration options supported by the global definition.
 
 | Key              | Default | Description                                  |
 |------------------|---------|----------------------------------------------|
