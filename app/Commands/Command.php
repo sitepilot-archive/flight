@@ -44,18 +44,22 @@ abstract class Command extends BaseCommand
             $this->abort('No environments found' . ($permission ? " with permission [$permission]." : "."));
         }
 
-        if (count($environments) == 1) {
-            $env = array_key_first($environments);
-        } else if (collect($environments)->where('default', true)->count() == 1) {
-            $env = array_key_first(collect($environments)->where('default', true)->toArray());
-        } elseif (isset($environments[$this->option('env')])) {
-            $env = $this->option('env');
+        if ($env = $this->option('env')) {
+            if (!isset($environments[$this->option('env')])) {
+                $this->abort("Could not find [$env] environment.");
+            }
         } else {
-            $env = $this->choice(
-                "In which environment would you like to run the command?",
-                array_keys($environments),
-                array_key_first($environments)
-            );
+            if (count($environments) == 1) {
+                $env = array_key_first($environments);
+            } else if (!$this->option('env') && collect($environments)->where('default', true)->count() == 1) {
+                $env = array_key_first(collect($environments)->where('default', true)->toArray());
+            } else {
+                $env = $this->choice(
+                    "In which environment would you like to run the command?",
+                    array_keys($environments),
+                    array_key_first($environments)
+                );
+            }
         }
 
         $this->config->setEnv($env);
