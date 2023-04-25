@@ -58,25 +58,26 @@ environment named `dev`.
 
 The table below contains a list of all configuration options supported by an environment definition.
 
-| Key                       | Default      | Description                                                 |
-|---------------------------|--------------|-------------------------------------------------------------|
-| `<env>.host`              | -            | The remote SSH host                                         |
-| `<env>.port`              | 22           | The remote SSH port                                         |
-| `<env>.user`              | root         | The remote SSH user                                         |
-| `<env>.shell`             | bash         | The remote SSH port                                         |
-| `<env>.path`              | -            | The remote project path                                     |
-| `<env>.container.name`    | -            | The remote container name                                   |
-| `<env>.container.user`    | root         | The remote container user                                   |
-| `<env>.container.shell`   | bash         | The remote container shell                                  |
-| `<env>.database.ssh`      | false        | Connect to the database via SSH                             |
-| `<env>.database.type`     | mariadb      | The database type (e.g. mariadb, mysql, microsoftsqlserver) |
-| `<env>.database.host`     | `<env>.host` | The database host                                           |
-| `<env>.database.port`     | 3306         | The database port                                           |
-| `<env>.database.name`     | -            | The database name                                           |
-| `<env>.database.user`     | -            | The database user                                           |
-| `<env>.database.password` | -            | The database user                                           |
-| `<env>.sync.ignore`       | -            | A list of files and folders to ignore                       |
-| `<env>.permissions`       | -            | A list of allowed (destructive) commands (e.g. sync)        |
+| Key                       | Default      | Description                                                                                  |
+|---------------------------|--------------|----------------------------------------------------------------------------------------------|
+| `<env>.host`              | -            | The remote SSH host                                                                          |
+| `<env>.port`              | 22           | The remote SSH port                                                                          |
+| `<env>.user`              | root         | The remote SSH user                                                                          |
+| `<env>.shell`             | bash         | The remote SSH port                                                                          |
+| `<env>.path`              | -            | The remote project path                                                                      | 
+| `<env>.container.name`    | -            | The remote container name                                                                    |
+| `<env>.container.user`    | root         | The remote container user                                                                    |
+| `<env>.container.shell`   | bash         | The remote container shell                                                                   |
+| `<env>.database.ssh`      | false        | Connect to the database via SSH                                                              |
+| `<env>.database.type`     | mariadb      | The database type (e.g. mariadb, mysql, microsoftsqlserver)                                  |
+| `<env>.database.host`     | `<env>.host` | The database host                                                                            |
+| `<env>.database.port`     | 3306         | The database port                                                                            |
+| `<env>.database.name`     | -            | The database name                                                                            |
+| `<env>.database.user`     | -            | The database user                                                                            |
+| `<env>.database.password` | -            | The database user                                                                            |
+| `<env>.sync.ignore`       | -            | A list of files and folders to ignore                                                        |
+| `<env>.permissions`       | -            | A list of allowed (destructive) commands (e.g. `flight sync`)                                |
+| `<env>.default`           | false        | Specifies that this is the default environment for running commands in (e.g. `flight shell`) |
 
 #### Example
 

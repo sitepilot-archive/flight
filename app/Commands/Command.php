@@ -46,6 +46,8 @@ abstract class Command extends BaseCommand
 
         if (count($environments) == 1) {
             $env = array_key_first($environments);
+        } else if (collect($environments)->where('default', true)->count() == 1) {
+            $env = array_key_first(collect($environments)->where('default', true)->toArray());
         } elseif (isset($environments[$this->option('env')])) {
             $env = $this->option('env');
         } else {
