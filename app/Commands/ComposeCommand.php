@@ -14,8 +14,6 @@ class ComposeCommand extends Command
     {
         $this->assertComposeProject();
 
-        $this->askForEnv();
-
         $this->remoteCmd("docker {$this->input->__toString()}")->run();
     }
 }

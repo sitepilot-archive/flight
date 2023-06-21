@@ -13,8 +13,6 @@ class SyncCommand extends Command
 
     public function handle(): void
     {
-        $this->askForEnv('sync');
-
         $this->config->validate([
             'host' => ['required', 'string'],
             'user' => ['required', 'string'],

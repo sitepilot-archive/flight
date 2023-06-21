@@ -10,8 +10,6 @@ class ShellCommand extends Command
 
     public function handle(): void
     {
-        $this->askForEnv();
-
         if (
             !$this->option('host')
             && $this->shouldRunInContainer()
