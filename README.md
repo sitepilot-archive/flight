@@ -86,26 +86,26 @@ links:
 
 ## Commands
 
-| Command                    | Permission | Description                                                      |
-|----------------------------|------------|------------------------------------------------------------------|
-| `flight init`              | -          | Initialize configuration                                         |
-| `flight config`            | -          | Display the configuration                                        |
-| `flight shell`             | -          | Start a remote shell                                             |
-| `flight shell --host`      | -          | Start a remote shell to the host (when using a remote container) |
-| `flight folder`            | -          | Open project folder in explorer / finder                         |
-| `flight open {link}`       | -          | Open a project link in the default browser                       |
-| `flight db`                | -          | Open database in [TablePlus](https://tableplus.com/)             |
-| `flight db --show`         | -          | Show database connection string (for import in TablePlus)        |
-| `flight sync`              | sync       | Start / resume file synchronization                              |
-| `flight sync:status`       | sync       | Display file synchronization status                              |
-| `flight sync:pause`        | sync       | Pause file synchronization                                       |
-| `flight sync:terminate`    | sync       | Terminate file synchronization                                   |
-| `flight sync:list`         | -          | Display all file synchronization sessions                        |
-| `flight artisan {command}` | -          | Run a Laravel Artisan command                                    |
-| `flight wp {command}`      | -          | Run a WPCLI command                                              |
-| `flight compose {command}` | -          | Run a Docker Compose command                                     |
-| `flight up {options}`      | -          | Alias for the `docker compose up` command                        |
-| `flight down {options}`    | -          | Alias for the `docker compose down` command                      |
+| Command                    | Description                                                      |
+|----------------------------|------------------------------------------------------------------|
+| `flight init`              | Initialize configuration                                         |
+| `flight config`            | Display the configuration                                        |
+| `flight shell`             | Start a remote shell                                             |
+| `flight shell --host`      | Start a remote shell to the host (when using a remote container) |
+| `flight folder`            | Open project folder in explorer / finder                         |
+| `flight open {link}`       | Open a project link in the default browser                       |
+| `flight db`                | Open database in [TablePlus](https://tableplus.com/)             |
+| `flight db --show`         | Show database connection string (for import in TablePlus)        |
+| `flight sync`              | Start / resume file synchronization                              |
+| `flight sync:status`       | Display file synchronization status                              |
+| `flight sync:pause`        | Pause file synchronization                                       |
+| `flight sync:terminate`    | Terminate file synchronization                                   |
+| `flight sync:list`         | Display all file synchronization sessions                        |
+| `flight artisan {command}` | Run a Laravel Artisan command                                    |
+| `flight wp {command}`      | Run a WPCLI command                                              |
+| `flight compose {command}` | Run a Docker Compose command                                     |
+| `flight up {options}`      | Alias for the `docker compose up` command                        |
+| `flight down {options}`    | Alias for the `docker compose down` command                      |
 
 ## Updating
 
