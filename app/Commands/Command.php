@@ -79,7 +79,7 @@ abstract class Command extends BaseCommand
         $remotePath = $this->config->get('path') . str_replace($this->config->path(), '', getcwd());
 
         $command = [
-            'ssh', '-t', '-o', 'LogLevel=QUIET', '-p', $this->config->get('port', 22),
+            'ssh', '-t', '-o', 'LogLevel=QUIET', '-o', 'ServerAliveInterval=60', '-p', $this->config->get('port', 22),
             $this->config->get('user') . '@' . $this->config->get('host'),
             "cd $remotePath ; $command"
         ];
