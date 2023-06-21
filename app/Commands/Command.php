@@ -26,45 +26,6 @@ abstract class Command extends BaseCommand
         $this->config = $config;
     }
 
-    public function askForEnv(?string $permission = null): void
-    {
-        $environments = $this->config->all();
-
-        unset($environments['global']);
-
-        if ($permission) {
-            $environments = collect($this->config->all())
-                ->whereNotNull('permissions')
-                ->filter(function (array $environment) use ($permission) {
-                    return in_array($permission, $environment['permissions']);
-                })->toArray();
-        }
-
-        if (!$environments) {
-            $this->abort('No environments found' . ($permission ? " with permission [$permission]." : "."));
-        }
-
-        if ($env = $this->option('env')) {
-            if (!isset($environments[$this->option('env')])) {
-                $this->abort("Could not find [$env] environment.");
-            }
-        } else {
-            if (count($environments) == 1) {
-                $env = array_key_first($environments);
-            } else if (!$this->option('env') && collect($environments)->where('default', true)->count() == 1) {
-                $env = array_key_first(collect($environments)->where('default', true)->toArray());
-            } else {
-                $env = $this->choice(
-                    "In which environment would you like to run the command?",
-                    array_keys($environments),
-                    array_key_first($environments)
-                );
-            }
-        }
-
-        $this->config->setEnv($env);
-    }
-
     public function localCmd(array $command, int $timeout = 0): Process
     {
         return (new Process($command))

@@ -14,8 +14,6 @@ class DownCommand extends Command
     {
         $this->assertComposeProject();
 
-        $this->askForEnv();
-
         $this->remoteCmd("docker compose {$this->input->__toString()}")->run();
     }
 }

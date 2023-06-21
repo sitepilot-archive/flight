@@ -43,97 +43,69 @@ sudo mv flight /usr/local/bin/flight
 
 ## Getting Started
 
-Run `flight init` to create a Flight configuration file in the current project folder. The configuration will be stored
-in `<project-root>/flight.yml` and is composed of the following definitions:
-
-* [Environments](#environments)
-* [Global](#global)
+Run `flight init` within a local project folder to create a Flight configuration file. The configuration will be stored
+in `<project-root>/flight.yml`.
 
 ## Configuration
 
-The Flight configuration file is a YAML file defining one or more environments. By default, the `init` command adds one
-environment named `dev`.
+The table below contains a list of all configuration options supported by Flight.
 
-### Environments
-
-The table below contains a list of all configuration options supported by an environment definition.
-
-| Key                       | Default      | Description                                                                                  |
-|---------------------------|--------------|----------------------------------------------------------------------------------------------|
-| `<env>.host`              | -            | The remote SSH host                                                                          |
-| `<env>.port`              | 22           | The remote SSH port                                                                          |
-| `<env>.user`              | root         | The remote SSH user                                                                          |
-| `<env>.shell`             | bash         | The remote SSH port                                                                          |
-| `<env>.path`              | -            | The remote project path                                                                      | 
-| `<env>.container.name`    | -            | The remote container name                                                                    |
-| `<env>.container.user`    | root         | The remote container user                                                                    |
-| `<env>.container.shell`   | bash         | The remote container shell                                                                   |
-| `<env>.database.ssh`      | false        | Connect to the database via SSH                                                              |
-| `<env>.database.type`     | mariadb      | The database type (e.g. mariadb, mysql, microsoftsqlserver)                                  |
-| `<env>.database.host`     | `<env>.host` | The database host                                                                            |
-| `<env>.database.port`     | 3306         | The database port                                                                            |
-| `<env>.database.name`     | -            | The database name                                                                            |
-| `<env>.database.user`     | -            | The database user                                                                            |
-| `<env>.database.password` | -            | The database user                                                                            |
-| `<env>.sync.ignore`       | -            | A list of files and folders to ignore                                                        |
-| `<env>.permissions`       | -            | A list of allowed (destructive) commands (e.g. `flight sync`)                                |
-| `<env>.default`           | false        | Specifies that this is the default environment for running commands in (e.g. `flight shell`) |
+| Key                 | Default      | Description                                                 |
+|---------------------|--------------|-------------------------------------------------------------|
+| `host`              | -            | The remote SSH host                                         |
+| `port`              | 22           | The remote SSH port                                         |
+| `user`              | root         | The remote SSH user                                         |
+| `shell`             | bash         | The remote SSH port                                         |
+| `path`              | -            | The remote project path                                     | 
+| `container.name`    | -            | The remote container name                                   |
+| `container.user`    | root         | The remote container user                                   |
+| `container.shell`   | bash         | The remote container shell                                  |
+| `database.ssh`      | false        | Connect to the database via SSH                             |
+| `database.type`     | mariadb      | The database type (e.g. mariadb, mysql, microsoftsqlserver) |
+| `database.host`     | `<env>.host` | The database host                                           |
+| `database.port`     | 3306         | The database port                                           |
+| `database.name`     | -            | The database name                                           |
+| `database.user`     | -            | The database user                                           |
+| `database.password` | -            | The database user                                           |
+| `sync.ignore`       | -            | A list of files and folders to ignore                       |
+| `links.*`           | -            | A list of external project links (key-value)                |
 
 #### Example
 
 ```yaml
-dev:
-  host: 1.2.3.4
-  port: 22
-  user: captain
-  path: ~/code/project
-  sync:
-    ignore:
-      - node_modules
-  permissions:
-    - sync
-```
-
-### Global
-
-The `global` section contains configuration options which apply to all environments. The table below contains a list of
-all configuration options supported by the global definition.
-
-| Key              | Default | Description                                  |
-|------------------|---------|----------------------------------------------|
-| `global.links.*` | -       | A list of external project links (key-value) |
-
-#### Example
-
-```yaml
-global:
-  links:
-    preview: https://sitepilot.io
-    github: https://github.com/sitepilot/flight
+host: 1.2.3.4
+port: 22
+user: captain
+path: ~/code/project
+sync:
+  ignore:
+    - node_modules
+links:
+  preview: https://sitepilot.io
 ```
 
 ## Commands
 
-| Command                    | Permission | Description                                               |
-|----------------------------|------------|-----------------------------------------------------------|
-| `flight init`              | -          | Initialize configuration                                  |
-| `flight config`            | -          | Display the configuration                                 |
-| `flight shell`             | -          | Start a remote shell                                      |
-| `flight folder`            | -          | Open project folder in explorer / finder                  |
-| `flight open {link}`       | -          | Open a project link in the default browser                |
-| `flight db`                | -          | Open database in [TablePlus](https://tableplus.com/)      |
-| `flight db --show`         | -          | Show database connection string (for import in TablePlus) |
-| `flight sync`              | sync       | Start / resume file synchronization                       |
-| `flight sync:status`       | sync       | Display file synchronization status                       |
-| `flight sync:pause`        | sync       | Pause file synchronization                                |
-| `flight sync:terminate`    | sync       | Terminate file synchronization                            |
-| `flight sync:list`         | -          | Display all file synchronization sessions                 |
-| `flight artisan {command}` | -          | Run a Laravel Artisan command                             |
-| `flight wp {command}`      | -          | Run a WPCLI command                                       |
-| `flight ssh {environment}` | -          | SSH into a remote environment                             |
-| `flight compose {command}` | -          | Run a Docker Compose command                              |
-| `flight up {options}`      | -          | Alias for the `docker compose up` command                 |
-| `flight down {options}`    | -          | Alias for the `docker compose down` command               |
+| Command                    | Description                                                      |
+|----------------------------|------------------------------------------------------------------|
+| `flight init`              | Initialize configuration                                         |
+| `flight config`            | Display the configuration                                        |
+| `flight shell`             | Start a remote shell                                             |
+| `flight shell --host`      | Start a remote shell to the host (when using a remote container) |
+| `flight folder`            | Open project folder in explorer / finder                         |
+| `flight open {link}`       | Open a project link in the default browser                       |
+| `flight db`                | Open database in [TablePlus](https://tableplus.com/)             |
+| `flight db --show`         | Show database connection string (for import in TablePlus)        |
+| `flight sync`              | Start / resume file synchronization                              |
+| `flight sync:status`       | Display file synchronization status                              |
+| `flight sync:pause`        | Pause file synchronization                                       |
+| `flight sync:terminate`    | Terminate file synchronization                                   |
+| `flight sync:list`         | Display all file synchronization sessions                        |
+| `flight artisan {command}` | Run a Laravel Artisan command                                    |
+| `flight wp {command}`      | Run a WPCLI command                                              |
+| `flight compose {command}` | Run a Docker Compose command                                     |
+| `flight up {options}`      | Alias for the `docker compose up` command                        |
+| `flight down {options}`    | Alias for the `docker compose down` command                      |
 
 ## Updating
 

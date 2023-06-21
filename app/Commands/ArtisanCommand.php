@@ -14,8 +14,6 @@ class ArtisanCommand extends Command
     {
         $this->assertLaravelProject();
 
-        $this->askForEnv();
-
         $command = explode(" ", $this->input->__toString());
 
         $command = array_merge(['php'], $command);

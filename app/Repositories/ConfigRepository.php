@@ -11,8 +11,6 @@ use Symfony\Component\Yaml\Yaml;
 
 class ConfigRepository
 {
-    protected ?string $env = null;
-
     protected ?string $file = null;
 
     protected ?array $config = null;
@@ -40,34 +38,6 @@ class ConfigRepository
         return $this->file;
     }
 
-    public function setEnv(string $env): void
-    {
-        if (!isset($this->config[$env])) {
-            $this->abort("Could not find [$env] environment in configuration.");
-        }
-
-        $this->env = $env;
-    }
-
-    public function env(): string
-    {
-        return $this->env;
-    }
-
-    public function envTag(): string
-    {
-        $map = [
-            'dev' => 'development',
-            'develop' => 'development',
-            'prd' => 'production',
-            'prod' => 'production',
-            'stg' => 'staging',
-            'test' => 'testing'
-        ];
-
-        return $map[$this->env] ?? $this->env;
-    }
-
     public function path(string $path = ''): string
     {
         return dirname($this->file()) . ($path ? DIRECTORY_SEPARATOR . $path : $path);
@@ -80,14 +50,14 @@ class ConfigRepository
 
     public function id(): string
     {
-        return Str::slug($this->name() . ($this->env ? "-" . $this->env : ""));
+        return Str::slug('fl-' . $this->name());
     }
 
     public function get(string $key, mixed $default = null): mixed
     {
         return Arr::get(
             $this->loadConfig(),
-            $this->env ? sprintf('%s.%s', $this->env, $key) : $key,
+            $key,
             $default
         );
     }
@@ -99,14 +69,12 @@ class ConfigRepository
 
     public function abort(string $message, int $code = 1): void
     {
-        abort($code, $this->env ? "[{$this->env}] $message" : $message);
+        abort($code, $message);
     }
 
     public function validate(array $rules, array $messages = []): void
     {
         $config = $this->loadConfig();
-
-        if ($this->env) $config = $config[$this->env];
 
         try {
             Validator::make($config, $rules, $messages)->validate();
