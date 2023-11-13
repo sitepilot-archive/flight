@@ -3,6 +3,7 @@
 namespace App\Commands;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use Symfony\Component\Yaml\Yaml;
 
 class InitCommand extends Command
@@ -20,7 +21,7 @@ class InitCommand extends Command
                 'host' => $this->ask('Remote project host'),
                 'port' => (int)$this->ask('Remote SSH port', 22),
                 'user' => $this->ask('Remote SSH user', 'captain'),
-                'path' => $this->ask('Remote project path', '~/code/' . basename(getcwd()))
+                'path' => $this->ask('Remote project path', '~/' . Str::lower(basename(getcwd())))
             ];
 
             File::put($file,

@@ -16,10 +16,6 @@ class ExecCommand extends Command
 
         unset($command[0]); // remove exec
 
-        if ($this->shouldRunInContainer()) {
-            $this->composeCmd($command)->run();
-        } else {
-            $this->remoteCmd($command)->run();
-        }
+        $this->remoteCmd($command)->run();
     }
 }

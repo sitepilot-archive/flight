@@ -43,6 +43,13 @@ class ConfigRepository
         return dirname($this->file()) . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
 
+    public function projectPath(string $path = ''): string
+    {
+        $projectRoot = explode(DIRECTORY_SEPARATOR, str_replace($this->path() . '/', '', getcwd()))[0];
+
+        return $this->path($projectRoot . DIRECTORY_SEPARATOR . $path);
+    }
+
     public function name(): string
     {
         return basename($this->path());
