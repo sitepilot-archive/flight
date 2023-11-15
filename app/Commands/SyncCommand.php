@@ -32,7 +32,7 @@ class SyncCommand extends Command
 
             $this->task('Start file synchronization', function () use ($ignores) {
                 $this->localCmd(array_merge(
-                    ['mutagen', 'sync', 'create', '--name=' . $this->config->id(), '--default-directory-mode=0755', '--default-file-mode=0644'],
+                    ['mutagen', 'sync', 'create', '--name=' . $this->config->id(), '--default-directory-mode=0755', '--default-file-mode=0644', '--watch-polling-interval=2'],
                     $ignores,
                     [$this->config->path(), $this->config->get('user') . '@' . $this->config->get('host') . ':' . $this->config->get('port', 22) . ':' . $this->config->get('path')]
                 ))
