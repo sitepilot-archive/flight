@@ -90,10 +90,20 @@ class ConfigRepository
             return $this->config;
         }
 
-        return $this->config = $this->replaceEnv(Yaml::parse(File::get($this->file())) ?: [], [
+        $config = Yaml::parse(File::get($this->file()));
+
+        return $this->config = $this->replaceEnv($config ?: [], [
+            'host' => '${FLIGHT_HOST}',
+            'port' => '${FLIGHT_PORT:-22}',
+            'user' => '${FLIGHT_USER:-root}',
+            'shell' => '${FLIGHT_SHELL:-bash}',
+            'path' => '${FLIGHT_PATH}',
             'url' => '${APP_URL}',
-            'database.port' => '${DB_PORT}',
-            'database.type' => '${DB_CONNECTION}',
+            'sync.ignore' => [],
+            'database.ssh' => false,
+            'database.host' => '${FLIGHT_HOST:-' . ($config['host'] ?? null) . '}',
+            'database.port' => '${DB_PORT:-3306}',
+            'database.type' => '${DB_CONNECTION:-mysql}',
             'database.name' => '${DB_DATABASE}',
             'database.user' => '${DB_USERNAME}',
             'database.password' => '${DB_PASSWORD}',
@@ -108,8 +118,10 @@ class ConfigRepository
 
         foreach ($array as &$value) {
             $matches = null;
-            if (preg_match('/^\${(.*)}/', $value, $matches)) {
-                $value = $env[$matches[1]] ?? null;
+            if (is_string($value) && preg_match('/^\${(.*)}/', $value, $matches)) {
+                $match = explode(':-', $matches[1]);
+                $default = $match[1] ?? null;
+                $value = $env[$match[0]] ?? $default;
             }
         }
 

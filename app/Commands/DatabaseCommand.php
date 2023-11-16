@@ -11,12 +11,12 @@ class DatabaseCommand extends Command
     public function handle(): void
     {
         $rules = [
-            'database.type' => ['nullable', 'string'],
+            'database.type' => ['required', 'string'],
             'database.user' => ['required', 'string'],
             'database.password' => ['required', 'string'],
-            'database.port' => ['nullable', 'numeric'],
+            'database.port' => ['required', 'numeric'],
             'database.name' => ['required', 'string'],
-            'database.ssh' => ['nullable', 'boolean']
+            'database.ssh' => ['required', 'boolean']
         ];
 
         $this->config->validate($rules);
@@ -34,13 +34,13 @@ class DatabaseCommand extends Command
                 '%s+ssh://%s:%s@%s:%s/%s:%s@%s:%s/%s',
                 urlencode($type),
                 urlencode($this->config->get('user')),
-                urlencode($this->config->get('password', 'NULL')),
+                urlencode($this->config->get('password')),
                 urlencode($this->config->get('host')),
-                urlencode($this->config->get('port', 22)),
+                urlencode($this->config->get('port')),
                 urlencode($this->config->get('database.user')),
                 urlencode($this->config->get('database.password')),
-                urlencode($this->config->get('database.host', '127.0.0.1')),
-                urlencode($this->config->get('database.port', 3306)),
+                urlencode($this->config->get('database.host')),
+                urlencode($this->config->get('database.port')),
                 urlencode($this->config->get('database.name'))
             );
         } else {
@@ -49,8 +49,8 @@ class DatabaseCommand extends Command
                 urlencode($type),
                 urlencode($this->config->get('database.user')),
                 urlencode($this->config->get('database.password')),
-                urlencode($this->config->get('database.host', $this->config->get('host'))),
-                urlencode($this->config->get('database.port', 3306)),
+                urlencode($this->config->get('database.host')),
+                urlencode($this->config->get('database.port')),
                 urlencode($this->config->get('database.name'))
             );
         }

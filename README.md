@@ -50,21 +50,22 @@ in `<project-root>/flight.yml`.
 
 The table below contains a list of all configuration options supported by Flight.
 
-| Key                 | Default      | Description                                                 |
-|---------------------|--------------|-------------------------------------------------------------|
-| `host`              | -            | The remote SSH host                                         |
-| `port`              | 22           | The remote SSH port                                         |
-| `user`              | root         | The remote SSH user                                         |
-| `shell`             | bash         | The remote SSH port                                         |
-| `path`              | -            | The remote project path                                     | 
-| `sync.ignore`       | -            | A list of files and folders to ignore                       |
-| `database.ssh`      | false        | Connect to the database via SSH                             |
-| `database.type`     | mariadb      | The database type (e.g. mariadb, mysql, microsoftsqlserver) |
-| `database.host`     | `<env>.host` | The database host                                           |
-| `database.port`     | 3306         | The database port                                           |
-| `database.name`     | -            | The database name                                           |
-| `database.user`     | -            | The database user                                           |
-| `database.password` | -            | The database user                                           |
+| Key                 | Default                   | Description                                                 |
+|---------------------|---------------------------|-------------------------------------------------------------|
+| `host`              | `${FLIGHT_HOST}`          | The remote SSH host                                         |
+| `port`              | `${FLIGHT_PORT:-22}`      | The remote SSH port                                         |
+| `user`              | `${FLIGHT_USER:-root}`    | The remote SSH user                                         |
+| `shell`             | `${FLIGHT_SHELL:-bash}`   | The remote SSH port                                         |
+| `path`              | `${FLIGHT_PATH}`          | The remote project path                                     | 
+| `url`               | `${APP_URL}`              | The application URL                                         | 
+| `sync.ignore`       | `[]`                      | A list of files and folders to ignore                       |
+| `database.ssh`      | `false`                   | Connect to the database via SSH                             |
+| `database.type`     | `${DB_CONNECTION:-mysql}` | The database type (e.g. mariadb, mysql, microsoftsqlserver) |
+| `database.host`     | `${FLIGHT_HOST}`          | The database host                                           |
+| `database.port`     | `${DB_PORT:-3306}`        | The database port                                           |
+| `database.name`     | `${DB_DATABASE}`          | The database name                                           |
+| `database.user`     | `${DB_USERNAME}`          | The database user                                           |
+| `database.password` | `${DB_PASSWORD}`          | The database password                                       |
 
 #### Example
 
@@ -93,6 +94,7 @@ sync:
 | `flight shell`          | Start a remote shell                                      |
 | `flight folder`         | Open project folder in explorer / finder                  |
 | `flight docker:context` | Setup Docker context (for running remote Docker commands) |
+| `flight open`           | Open application URL in default browser                   |
 | `flight db`             | Open database in [TablePlus](https://tableplus.com/)      |
 | `flight db --show`      | Show database connection string (for import in TablePlus) |
 
