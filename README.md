@@ -48,7 +48,7 @@ in `<project-root>/flight.yml`.
 
 ## Configuration
 
-The table below contains a list of all configuration options supported by Flight.
+The table below contains a list of all configuration options supported by Flight. Environment variables are automatically substituted if a `.env` file is within the project root.
 
 | Key                 | Default                   | Description                                                 |
 |---------------------|---------------------------|-------------------------------------------------------------|
