@@ -57,7 +57,8 @@ class DatabaseCommand extends Command
         if ($this->option('show')) {
             $this->info($url);
         } elseif ($this->isWSL()) {
-            $this->localCmd(['/mnt/c/Windows/explorer.exe', $url])->run();
+            $this->localCmd(['cmd.exe', '/c', "start $url"])
+                ->setTty(false)->run();
         } else {
             $this->localCmd(['open', $url])->run();
         }
