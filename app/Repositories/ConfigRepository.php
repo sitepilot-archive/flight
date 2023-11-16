@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Dotenv\Dotenv;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
@@ -41,13 +42,6 @@ class ConfigRepository
     public function path(string $path = ''): string
     {
         return dirname($this->file()) . ($path ? DIRECTORY_SEPARATOR . $path : $path);
-    }
-
-    public function projectPath(string $path = ''): string
-    {
-        $projectRoot = explode(DIRECTORY_SEPARATOR, str_replace($this->path() . '/', '', getcwd()))[0];
-
-        return $this->path($projectRoot . DIRECTORY_SEPARATOR . $path);
     }
 
     public function name(): string
@@ -96,6 +90,29 @@ class ConfigRepository
             return $this->config;
         }
 
-        return $this->config = Yaml::parse(File::get($this->file())) ?: [];
+        return $this->config = $this->replaceEnv(Yaml::parse(File::get($this->file())) ?: [], [
+            'url' => '${APP_URL}',
+            'database.port' => '${DB_PORT}',
+            'database.type' => '${DB_CONNECTION}',
+            'database.name' => '${DB_DATABASE}',
+            'database.user' => '${DB_USERNAME}',
+            'database.password' => '${DB_PASSWORD}',
+        ]);
+    }
+
+    public function replaceEnv(array $array, array $defaults = []): array
+    {
+        $env = Dotenv::createImmutable($this->path())->safeLoad();
+
+        $array = array_merge($defaults, Arr::dot($array));
+
+        foreach ($array as &$value) {
+            $matches = null;
+            if (preg_match('/^\${(.*)}/', $value, $matches)) {
+                $value = $env[$matches[1]] ?? null;
+            }
+        }
+
+        return Arr::undot($array);
     }
 }
